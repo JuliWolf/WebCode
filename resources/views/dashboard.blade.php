@@ -22,7 +22,7 @@
                 <h3>What other people say...</h3>
             </header>
             @foreach($posts as $post)
-                <article class="post">
+                <article class="post" data-postid="{{ $post->id }}">
                     <p> {{ $post->body }} </p>
                     <div class="info">
                         Posted by {{ $post->user->first_name }} on {{ $post->created_at }}
@@ -31,7 +31,7 @@
                         <a href="#">Like</a>
                         <a href="#">Dislike</a>
                         @if(Auth::user() == $post->user)
-                            <a href="#" id="post-edit" data-postid="{{ $post->id }}">Edit</a>
+                            <a href="#" id="post-edit" data-postid="{{ $post->id }}" class="edit">Edit</a>
                             <a href="{{ route('post.delete', ['post_id' => $post->id]) }}">Delete</a>
                         @endif
                     </div>
@@ -57,9 +57,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="modal-save">Save changes</button>
                 </div>
             </div><!-- /.модал-контент -->
         </div><!-- /.модальное окно -->
     </div><!-- /.модальные -->
+
+    <script>
+        var token = '{{ Session::token() }}';
+        var url = '{{ route('edit') }}';
+    </script>
 @endsection
