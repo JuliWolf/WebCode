@@ -72,6 +72,11 @@ Route::group(['middleware' => ['web']], function(){
         'as' => 'account.image'
     ]);
 
+    Route::post('/like', [
+        'uses' => 'PostController@postLikePost',
+        'as' => 'like'
+    ]);
+
 
 
 });
